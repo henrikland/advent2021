@@ -4,6 +4,6 @@ IO.read(:stdio, :all)
   |> Enum.chunk_every(3, 1, :discard)
   |> Enum.map(&(Enum.sum &1))
   |> Enum.chunk_every(2, 1, :discard)
-  |> Enum.filter(fn chunk -> List.first(chunk) < List.last(chunk) end)
+  |> Enum.filter(fn [first, second] -> first < second end)
   |> Enum.count
   |> IO.inspect

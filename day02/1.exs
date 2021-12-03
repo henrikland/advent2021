@@ -3,9 +3,11 @@ IO.read(:stdio, :all)
   |> Enum.reduce(
     { 0, 0 },
     fn line, { x, y } ->
-      split = String.split(line, " ")
-      direction = List.first(split)
-      units = List.last(split) |> String.to_integer
+      [direction, units] = String.split(line, " ")
+        |> then(fn [first, second] ->
+          [first, second |> String.to_integer]
+        end
+      )
 
       case direction do
         "forward" -> { x + units, y }
